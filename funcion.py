@@ -95,6 +95,7 @@ def validar_funcion(expr_texto):
     permitidos = {
         'x': x,
         'y': y,
+        'e': e,
         'sin': sp.sin,
         'cos': sp.cos,
         'tan': sp.tan,
