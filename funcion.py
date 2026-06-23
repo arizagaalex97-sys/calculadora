@@ -35,13 +35,18 @@ def aplicar_lhopital(num_str,den_str,valor):
     x = sp.symbols('x')
     f = sp.sympify(num_str)
     g = sp.sympify(den_str)
-    # Calcular derivadas
-    f_p = sp.diff(f, x)
-    g_p = sp.diff(g, x)
-    # Calcular el límite 
-    resultado = sp.limit(f_p / g_p, x, valor)
-    # Retornamos todo lo necesario para el paso a paso
-    return f_p, g_p, resultado
+    for i in range(max_iter):
+        # 1. Verificar si el límite es 0/0 o inf/inf
+        lim_f = sp.limit(f, x, valor)
+        lim_g = sp.limit(g, x, valor)
+        if (lim_f == 0 and lim_g == 0) or (abs(lim_f).is_infinite and abs(lim_g).is_infinite):
+            # 2. Aplicar derivada
+            f = sp.diff(f, x)
+            g = sp.diff(g, x)
+        else:
+            break
+    resultado = sp.limit(f / g, x, valor)
+    return f, g, resultado
 #Integral por partes
 def integrar_por_partes(u_str, dv_str):
     x = sp.symbols('x')
