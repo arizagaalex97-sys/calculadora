@@ -148,27 +148,17 @@ if selected == 'Calculadora':
         mime="application/pdf"
       )
 
-#Lhopital
+# Lhopital
   if opcion == "L Hopital":
     st.subheader("Regla de L Hopital")
-    num=st.text_input("Numerador f(x); ", "sin(x)")
+    num = st.text_input("Numerador f(x); ", "sin(x)")
     st.session_state["ultima_funcion"] = num
-    den = st.text_input("Denominador g(x): ","x")
-    val = st.text_input("Tiende a: ","x")
-    if requiere_3d(num):
-        st.info(
-        "📈 Se detectó la variable 'y'. "
-        "Para visualizar correctamente la función use Gráficas 3D."
-        )
-        st.success("📈 abra el graficador 3d")
-         
-        if st.button("🚀 Abrir Graficadora 3D"):
+    # Si dejan vacío el denominador, lo tratamos como '1'
+    den_input = st.text_input("Denominador g(x) (opcional): ", "x")
+    den = den_input if den_input.strip() != "" else "1"
     
-          st.session_state["ultima_funcion"] = num
-          st.session_state["selected_page"] = 'Graficas 3d'
+    val = st.text_input("Tiende a: ", "0")
 
-          st.rerun()
-    
     if st.button("Aplicar L Hopital"):
       x = sp.symbols('x')
       try:
@@ -177,31 +167,41 @@ if selected == 'Calculadora':
       except ValueError as e:
         st.error(f"❌ {e}")
         st.stop()
-      val_num = float(val)
-      st.write("Veririficacion de condiciones")
-        #Validacion :v
-      lim_num = sp.limit(f,x,val_num)
-      lim_den = sp.limit(g,x,val_num)
-        #procedimiento de la verificacion
+      
+      # MANEJO DEL INFINITO (Solución al ValueError)
+      if val.lower() in ['oo', 'inf', 'infinito']:
+          val_num = sp.oo
+      else:
+          try:
+              val_num = float(val)
+          except ValueError:
+              st.error("❌ El valor 'Tiende a' debe ser un número u 'oo'.")
+              st.stop()
+
+      st.write("Verificación de condiciones")
+      lim_num = sp.limit(f, x, val_num)
+      lim_den = sp.limit(g, x, val_num)
+      
       st.latex(rf"\lim_{{x \to {val}}} f(x) = {sp.latex(lim_num)}")
       st.latex(rf"\lim_{{x \to {val}}} g(x) = {sp.latex(lim_den)}")
-        #verificacion de ideterminaciones
       
-      if es_indeterminado(lim_num):
-        st.success("Se ha confirmado una indeterminacion")
+      # Verificamos si es indeterminado
+      if es_indeterminado(lim_num) and es_indeterminado(lim_den):
+        st.success("Se ha confirmado una indeterminación")
         
+        f_p, g_p, res = aplicar_lhopital(num, den, val_num)
         
-        #Proceso
-        f_p,g_p,res=aplicar_lhopital(num,den,val_num)
         st.write("Procedimiento paso a paso: ")
-        #Exprecion original
         st.latex(rf"\lim_{{x \to {val}}} \frac{{{sp.latex(f)}}}{{{sp.latex(g)}}}")
-        st.write("Aplicamos la regla de L Hopital: ")
-        #Mostramos las derivadas
+        st.write("Aplicamos la regla de L'Hopital: ")
         st.latex(rf"\frac{{f'(x)}}{{g'(x)}} = \frac{{{sp.latex(f_p)}}}{{{sp.latex(g_p)}}}")
-        #Mostramos el resultado final 
         st.write("Resultado:")
         st.latex(rf"\lim_{{x \to {val}}} \frac{{{sp.latex(f_p)}}}{{{sp.latex(g_p)}}} = {sp.latex(res)}")
+        
+        # ... (aquí iría tu bloque de generar_pdf)
+      else:
+           st.warning("El límite no resulta en 0/0 o inf/inf. L'Hopital podría no aplicarse.")
+
       
       
         pasos = [
