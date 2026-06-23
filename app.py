@@ -1,4 +1,3 @@
-
 import streamlit as st
 from funcion import*
 from streamlit_option_menu import option_menu
@@ -93,7 +92,7 @@ if selected == 'Calculadora':
   if opcion == "Limites": 
     st.subheader("Calculadora de limites✌") 
     func_input = st.text_input("Ingrese la Funcion f(x): ", "sin(x)/x")
-    valor=st.number_input("Tiende a: ",value=0.0) 
+    valor=st.text_input("Tiende a: ","x") 
     dir_lim=st.selectbox("Direccion: ",["ambos","+","-"])
     if requiere_3d(func_input):
         st.info(
@@ -154,8 +153,7 @@ if selected == 'Calculadora':
     st.subheader("Regla de L Hopital")
     num=st.text_input("Numerador f(x); ", "sin(x)")
     st.session_state["ultima_funcion"] = num
-    den = st.text_input("Denominador g(x): ","x")
-    val = st.number_input("Tiende a: ",value=0.0)
+    val = st.text_input("Tiende a: ","x")
     if requiere_3d(num):
         st.info(
         "📈 Se detectó la variable 'y'. "
@@ -174,7 +172,6 @@ if selected == 'Calculadora':
       x = sp.symbols('x')
       try:
         f = validar_funcion(num)
-        g = validar_funcion(den)
       except ValueError as e:
         st.error(f"❌ {e}")
         st.stop()
@@ -182,10 +179,8 @@ if selected == 'Calculadora':
       st.write("Veririficacion de condiciones")
         #Validacion :v
       lim_num = sp.limit(f,x,val_num)
-      lim_den = sp.limit(g,x,val_num)
         #procedimiento de la verificacion
       st.latex(rf"\lim_{{x \to {val}}} f(x) = {sp.latex(lim_num)}")
-      st.latex(rf"\lim_{{x \to {val}}} g(x) = {sp.latex(lim_den)}")
         #verificacion de ideterminaciones
       
       if es_indeterminado(lim_num):
@@ -207,7 +202,6 @@ if selected == 'Calculadora':
       
         pasos = [
           f"Numerador: {num}",
-          f"Denominador: {den}",
           f"Limite numerador: {lim_num}",
           f"Limite denominador: {lim_den}",
           f"Derivada numerador: {f_p}",
@@ -228,7 +222,6 @@ if selected == 'Calculadora':
     if st.button("Graficar Funciones"):
        try:
           validar_funcion(num)
-          validar_funcion(den)
           st.subheader("Visualización")
           col1, col2 = st.columns(2)
           with col1:
@@ -239,15 +232,6 @@ if selected == 'Calculadora':
                 bbox_inches="tight"
                 )
             st.pyplot(figura_f)
-
-          with col2:
-            st.write("g(x)")
-            figura_g = graficar_funcion(den)
-            figura_g.savefig(
-              "grafica_lhopital_g.png",
-               bbox_inches="tight"
-                )
-            st.pyplot(figura_g)
 
        except ValueError as e:
           st.error(f"❌ {e}")  
