@@ -153,8 +153,9 @@ if selected == 'Calculadora':
     st.subheader("Regla de L Hopital")
     num=st.text_input("Numerador f(x); ", "sin(x)")
     st.session_state["ultima_funcion"] = num
-    den = st.text_input("Denominador g(x): ","x")
-    val = st.text_input("Tiende a: ","x")
+    den_input = st.text_input("Denominador g(x) (opcional): ", "x")
+    den = den_input if den_input.strip() != "" else "1" ","x")
+    val_input = st.text_input("Tiende a (número o 'infinito'): ", "0")
     if requiere_3d(num):
         st.info(
         "📈 Se detectó la variable 'y'. "
@@ -174,10 +175,13 @@ if selected == 'Calculadora':
       try:
         f = validar_funcion(num)
         g = validar_funcion(den)
+        if val_input.lower() == 'infinito':
+            val_num = sp.oo
+        else:
+            val_num = float(val_input)
       except ValueError as e:
         st.error(f"❌ {e}")
         st.stop()
-      val_num = float(val)
       st.write("Veririficacion de condiciones")
         #Validacion :v
       lim_num = sp.limit(f,x,val_num)
