@@ -92,7 +92,7 @@ if selected == 'Calculadora':
   if opcion == "Limites": 
     st.subheader("Calculadora de limites✌") 
     func_input = st.text_input("Ingrese la Funcion f(x): ", "sin(x)/x")
-    valor=st.text_input("Tiende a: ","x") 
+    valor = st.text_input("Tiende a (ej: 0, 5, 2.5):", "0") 
     dir_lim=st.selectbox("Direccion: ",["ambos","+","-"])
     if requiere_3d(func_input):
         st.info(
@@ -110,7 +110,7 @@ if selected == 'Calculadora':
       x = sp.symbols('x') 
       try:
        f = validar_funcion(func_input)
-       if valor_input.strip().lower() in ['oo', 'inf', 'infinito']:
+       if valor.strip().lower() in ['oo', 'inf', 'infinito']:
           val_num = sp.oo
        else:
           val_num = float(valor)
