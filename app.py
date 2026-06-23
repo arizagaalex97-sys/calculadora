@@ -154,10 +154,7 @@ if selected == 'Calculadora':
     num=st.text_input("Numerador f(x); ", "sin(x)")
     st.session_state["ultima_funcion"] = num
     den_input = st.text_input("Denominador g(x) (opcional): ", "x")
-    if den_input.strip() == "":
-        den = "1"
-    else:
-        den = den_input
+    den = den_input if den_input.strip() != "" else "1"
     val_input = st.text_input("Tiende a (número o 'infinito'): ", "0")
     if requiere_3d(num):
         st.info(
@@ -187,11 +184,11 @@ if selected == 'Calculadora':
         st.stop()
       st.write("Veririficacion de condiciones")
         #Validacion :v
-      lim_num = sp.limit(f,x,val_num)
-      lim_den = sp.limit(g,x,val_num)
+      lim_num = sp.limit(f, x, val_num)
+      lim_den = sp.limit(g, x, val_num)
         #procedimiento de la verificacion
-      st.latex(rf"\lim_{{x \to {val}}} f(x) = {sp.latex(lim_num)}")
-      st.latex(rf"\lim_{{x \to {val}}} g(x) = {sp.latex(lim_den)}")
+      st.latex(rf"\lim_{{x \to {val_input}}} f(x) = {sp.latex(lim_num)}")
+      st.latex(rf"\lim_{{x \to {val_input}}} g(x) = {sp.latex(lim_den)}")
         #verificacion de ideterminaciones
       
       if es_indeterminado(lim_num):
