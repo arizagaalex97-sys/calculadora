@@ -113,11 +113,10 @@ if selected == 'Calculadora':
        if valor_input.strip().lower() in ['oo', 'inf', 'infinito']:
           val_num = sp.oo
        else:
-          val_num = float(valor_input)
+          val_num = float(valor)
       except ValueError as e:
        st.error(f"❌ {e}")
        st.stop()
-      val_num = float(valor) 
       st.write("### Procedimiento paso a paso") 
       st.latex(rf"\lim_{{x \to {val_num}}} {sp.latex(f)}")
       st.write("Sustituyendo el valor en la función:") 
