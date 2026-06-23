@@ -34,10 +34,10 @@ if st.session_state["selected_page"] == "menu":
 
     with col2:
         if st.button(
-            "📈 Gráficas 3D",
+            "📈 Gráficas",
             use_container_width=True
         ):
-            st.session_state["selected_page"] = "Graficas 3d"
+            st.session_state["selected_page"] = "Graficas"
             st.rerun()
         st.markdown("---")
 
@@ -57,7 +57,7 @@ if st.session_state["selected_page"] == "menu":
         - Regla de L'Hôpital
         - Integración por partes
         - Gráficas 2D
-        - Gráficas 3D
+        - Gráficas VIP
         """)
 
     st.markdown("---")
@@ -99,11 +99,11 @@ if selected == 'Calculadora':
         "📈 La expresión contiene la variable 'y'. "
         "Se recomienda utilizar el módulo de Gráficas 3D."
          )
-        st.success("📈 abra el graficador 3d")
-        if st.button("🚀 Ir a Graficas 3D"):
+        st.success("📈 abra el graficador")
+        if st.button("🚀 Ir a Graficas"):
     
           st.session_state["ultima_funcion"] = func_input
-          st.session_state["selected_page"] = 'Graficas 3d'
+          st.session_state["selected_page"] = 'Graficas'
 
           st.rerun()
     if st.button("Calcular"): 
@@ -164,12 +164,12 @@ if selected == 'Calculadora':
         "📈 Se detectó la variable 'y'. "
         "Para visualizar correctamente la función use Gráficas 3D."
         )
-        st.success("📈 abra el graficador 3d")
+        st.success("📈 abra el graficador")
          
-        if st.button("🚀 Abrir Graficadora 3D"):
+        if st.button("🚀 Abrir Graficadora"):
     
           st.session_state["ultima_funcion"] = num
-          st.session_state["selected_page"] = 'Graficas 3d'
+          st.session_state["selected_page"] = 'Graficas'
 
           st.rerun()
     
@@ -279,12 +279,12 @@ if selected == 'Calculadora':
         "Puede visualizarla mejor en el módulo de Gráficas 3D."
         
         )
-        st.success("📈 abra el graficador 3d")
+        st.success("📈 abra el graficador")
         
-        if st.button("🚀 Abrir Graficadora 3D"):
+        if st.button("🚀 Abrir Graficadora"):
 
           st.session_state["ultima_funcion"] = u_input
-          st.session_state["selected_page"] = 'Graficas 3d'
+          st.session_state["selected_page"] = 'Graficas'
 
           st.rerun()
     
@@ -362,9 +362,9 @@ if selected == 'Calculadora':
     st.session_state["selected_page"] = "menu"
     st.rerun()
           
-if selected=='Graficas 3d': 
+if selected=='Graficas': 
     
-    st.subheader("📈 Graficador 3D")
+    st.subheader("📈 Graficador VIP")
 
     funcion_3d = st.text_input(
         "Función f(x,y):",
@@ -374,7 +374,7 @@ if selected=='Graficas 3d':
         )
     )
 
-    if st.button("Graficar 3D"):
+    if st.button("Graficar"):
 
         try:
             figura = graficar_3d(funcion_3d)
