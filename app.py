@@ -154,7 +154,10 @@ if selected == 'Calculadora':
     num=st.text_input("Numerador f(x); ", "sin(x)")
     st.session_state["ultima_funcion"] = num
     den_input = st.text_input("Denominador g(x) (opcional): ", "x")
-    den = den_input if den_input.strip() != "" else "1" ","x"
+    if den_input.strip() == "":
+        den = "1"
+    else:
+        den = den_input
     val_input = st.text_input("Tiende a (número o 'infinito'): ", "0")
     if requiere_3d(num):
         st.info(
