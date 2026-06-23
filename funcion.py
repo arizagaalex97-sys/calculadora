@@ -31,7 +31,7 @@ def calcular_derivada(exprecion):
 def es_indeterminado(limite):
     return (limite.is_zero) or (abs(limite).is_infinite)
  #l,Hopital
-def aplicar_lhopital(num_str,den_str,valor):
+def aplicar_lhopital(num_str,den_str,valor,max_iter=3):
     x = sp.symbols('x')
     f = sp.sympify(num_str)
     g = sp.sympify(den_str)
