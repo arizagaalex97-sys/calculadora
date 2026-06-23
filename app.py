@@ -152,6 +152,7 @@ if selected == 'Calculadora':
   if opcion == "L Hopital":
     st.subheader("Regla de L Hopital")
     num=st.text_input("Numerador f(x); ", "sin(x)")
+    den = st.text_input("Denominador g(x); ", "x")
     st.session_state["ultima_funcion"] = num
     val = st.text_input("Tiende a: ","x")
     if requiere_3d(num):
