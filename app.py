@@ -175,7 +175,14 @@ if selected == 'Calculadora':
       except ValueError as e:
         st.error(f"❌ {e}")
         st.stop()
-      val_num = float(val)
+      if val.lower() in ['oo', 'inf', 'infinito']:
+          val_num = sp.oo 
+      else:
+          try:
+             val_num = float(val)
+          except ValueError:
+             st.error("Error: 'Tiende a' debe ser un número u 'oo' para infinito.")
+             st.stop()
       st.write("Veririficacion de condiciones")
         #Validacion :v
       lim_num = sp.limit(f,x,val_num)
