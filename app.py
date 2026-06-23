@@ -110,6 +110,10 @@ if selected == 'Calculadora':
       x = sp.symbols('x') 
       try:
        f = validar_funcion(func_input)
+       if valor_input.strip().lower() in ['oo', 'inf', 'infinito']:
+           val_num = sp.oo
+       else:
+           val_num = float(valor_input)
       except ValueError as e:
        st.error(f"❌ {e}")
        st.stop()
