@@ -175,10 +175,10 @@ if selected == 'Calculadora':
       try:
         f = validar_funcion(num)
         g = validar_funcion(den)
-        if val_input.lower() == 'infinito':
-            val_num = sp.oo
+        if val_input.strip().lower() in ['oo', 'inf', 'infinito']:
+           val_num = sp.oo
         else:
-            val_num = float(val_input)
+           val_num = float(val_input)
       except ValueError as e:
         st.error(f"❌ {e}")
         st.stop()
