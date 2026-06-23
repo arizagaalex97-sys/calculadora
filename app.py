@@ -199,13 +199,13 @@ if selected == 'Calculadora':
         f_p,g_p,res=aplicar_lhopital(num,den,val_num)
         st.write("Procedimiento paso a paso: ")
         #Exprecion original
-        st.latex(rf"\lim_{{x \to {val}}} \frac{{{sp.latex(f)}}}{{{sp.latex(g)}}}")
+        st.latex(rf"\lim_{{x \to {val_num}}} \frac{{{sp.latex(f)}}}{{{sp.latex(g)}}}")
         st.write("Aplicamos la regla de L Hopital: ")
         #Mostramos las derivadas
         st.latex(rf"\frac{{f'(x)}}{{g'(x)}} = \frac{{{sp.latex(f_p)}}}{{{sp.latex(g_p)}}}")
         #Mostramos el resultado final 
         st.write("Resultado:")
-        st.latex(rf"\lim_{{x \to {val}}} \frac{{{sp.latex(f_p)}}}{{{sp.latex(g_p)}}} = {sp.latex(res)}")
+        st.latex(rf"\lim_{{x \to {val_num}}} \frac{{{sp.latex(f_p)}}}{{{sp.latex(g_p)}}} = {sp.latex(res)}")
       
       
         pasos = [
